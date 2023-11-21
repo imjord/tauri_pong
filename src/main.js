@@ -1,4 +1,4 @@
-// const { invoke } = window.__TAURI__.tauri; not invoking anything from tauri yet so just comment this out
+const { invoke } = window.__TAURI__.tauri;
 
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -49,7 +49,42 @@ window.addEventListener("DOMContentLoaded", () => {
       }
       ctx.font = "50px Comic Sans MS";
       ctx.fillText(`${winner} wins!`, 250, 150);
-      
+  
+      ctx.fillText("Play Again?", 250, 250);
+
+      ctx.fillText("Quit", 250, 350);
+
+      // quit or restart.
+      canvas.addEventListener('click', function(event) {
+        const playAgainTextX = 250;
+        const playAgainTextY = 250;
+        const playAgainTextWidth = ctx.measureText("Play Again?").width;
+        const playAgainTextHeight = 30;
+    
+        if (
+            event.clientX >= playAgainTextX &&
+            event.clientX <= playAgainTextX + playAgainTextWidth &&
+            event.clientY >= playAgainTextY - playAgainTextHeight &&
+            event.clientY <= playAgainTextY
+        ) {
+            location.reload();
+        }
+    
+        const quitTextX = 250;
+        const quitTextY = 350; 
+        const quitTextWidth = ctx.measureText("Quit").width;
+        const quitTextHeight = 30;
+    
+        if (
+            event.clientX >= quitTextX &&
+            event.clientX <= quitTextX + quitTextWidth &&
+            event.clientY >= quitTextY - quitTextHeight &&
+            event.clientY <= quitTextY
+        ) {
+           invoke("quit_game");
+        }
+    });
+
 
       cancelAnimationFrame(animationId); // Stop the animation
       ballX = 50;
