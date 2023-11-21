@@ -1,14 +1,19 @@
-const { invoke } = window.__TAURI__.tauri;
+// const { invoke } = window.__TAURI__.tauri; not invoking anything from tauri yet so just comment this out
 
 
 window.addEventListener("DOMContentLoaded", () => {
+
   const canvas = document.getElementById("pong");
 
   if (canvas.getContext) {
+
     document.onkeydown = checkKey;
+
     let animationId;
+
     const ctx = canvas.getContext("2d");
 
+    // ball var and the scores
     var ballX = 350;
     var ballY = 250;
     var ballRadius = 10;
@@ -18,6 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
     var playerOneScore = 0;
     var playerTwoScore = 0;
 
+    // have this so that we can draw the rects of the player durning the drawball animation
     var playerOne = { x: 30, y: 250, width: 25, height: 100 };
     var playerTwo = { x: 730, y: 250, width: 25, height: 100 };
     var middleLine = { x: 397, y: 0, width: 10, height: 590 };
@@ -50,6 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
       ballY = 50;
     }
 
+    // this moves the other player around 
     function movePlayerTwo() {
       playerTwo.y = ballY;
       
@@ -61,6 +68,7 @@ window.addEventListener("DOMContentLoaded", () => {
     
     }
 
+    // check if the ball is actually touching a player
     function checkCollision(ballX, ballY, player) {
       return (
         ballX + ballRadius > player.x &&
@@ -70,6 +78,7 @@ window.addEventListener("DOMContentLoaded", () => {
       );
     }
 
+    // collision handler 
     function handleCollision(player) {
       console.log(`Hit ${player === playerOne ? "playerOne" : "playerTwo"}`);
       ballDirectionX *= -1;
@@ -90,6 +99,7 @@ window.addEventListener("DOMContentLoaded", () => {
       drawRect(playerOne);
       drawRect(playerTwo);
 
+      // fill the score on the top 
       ctx.font = "48px Comic Sans MS";
       ctx.fillText(`${playerOneScore}    ${playerTwoScore}`, 340, 50);
 
@@ -99,12 +109,14 @@ window.addEventListener("DOMContentLoaded", () => {
       ctx.fill();
 
 
+      // check if ball hits players
       if (checkCollision(ballX, ballY, playerOne)) {
         handleCollision(playerOne);
       } else if (checkCollision(ballX, ballY, playerTwo)) {
         handleCollision(playerTwo);
       }
 
+      // ball speed and movement per frame
       ballX += speed * ballDirectionX;
       ballY += speed * ballDirectionY;
 
@@ -137,6 +149,8 @@ window.addEventListener("DOMContentLoaded", () => {
       animationId = requestAnimationFrame(drawBall);
     }
 
+
+    // thanks stack overflow for once this is for up and down key presses.
     function checkKey(e) {
       e = e || window.event;
       const movementSpeed = 80;

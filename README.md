@@ -1,7 +1,17 @@
-# Tauri + Vanilla
+# Tauri Pong
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Javascript.
+Pong in Tauri 
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+# Usage
+
+You will need node npm installed. Also Cargo/Rust if you want to build it.
+
+- 1. Clone Repo.
+- 2. Npm I in the root dir. 
+- 3. Npm run tauri dev.
+- 4. Enjoy first to 5 wins.
+
+# Thanks
+
+Still W.I.P. Open an Issue if you find anything missing/bug.
